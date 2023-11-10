@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import Header from './Header';
 
 function App() {
 
@@ -8,11 +8,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <h1>Help Queue</h1>
+      <Header />
       <h3>3a</h3>
       <h3>{name} and {name2}</h3>
       <p><em>Firebase entries not saving!</em></p>
-      {/* This is a JSX comment. */}
       <hr />
     </React.Fragment>
   );
