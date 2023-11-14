@@ -7,7 +7,7 @@ const TicketList = (props) => {
 
   return (
     <React.Fragment>
-      {props.mainTicketList.map((ticket, index) =>
+      {props.ticketList.map((ticket, index) =>
         <Ticket
           names={ticket.names}
           location={ticket.location}
