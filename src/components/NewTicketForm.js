@@ -1,9 +1,32 @@
 import React from "react";
 
-function NewTicketForm(props) {
+const NewTicketForm = (props) => {
+
+
+  const handleNewTicketFormSubmission = (event) => {
+    event.preventDefault();
+    console.log(event.target.names.value);
+    console.log(event.target.location.value);
+    console.log(event.target.issue.value);
+  }
+
+
   return (
     <React.Fragment>
-      <h3>This is a form.</h3>
+      <form onSubmit={handleNewTicketFormSubmission}>
+        <input
+          type='text'
+          name='names'
+          placeholder='Pair Names' />
+        <input
+          type='text'
+          name='location'
+          placeholder='Location' />
+        <textarea
+          name='issue'
+          placeholder='Describe your issue.' />
+        <button type='submit'>Help!</button>
+      </form>
     </React.Fragment>
   );
 }
