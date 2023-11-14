@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const NewTicketForm = (props) => {
 
@@ -30,5 +31,9 @@ const NewTicketForm = (props) => {
     </React.Fragment>
   );
 }
+
+NewTicketForm.propTypes = {
+  onNewTicketCreation: PropTypes.func
+};
 
 export default NewTicketForm;
