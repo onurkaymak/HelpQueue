@@ -7,20 +7,23 @@ const TicketList = (props) => {
 
   return (
     <React.Fragment>
-      {props.ticketList.map((ticket, index) =>
+      <hr />
+      {props.ticketList.map((ticket) =>
         <Ticket
+          whenTicketClicked={props.onTicketSelection}
           names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
-          key={index}
-        />
+          id={ticket.id}
+          key={ticket.id} />
       )}
     </React.Fragment>
   );
 }
 
 TicketList.propTypes = {
-  ticketList: PropTypes.array
+  ticketList: PropTypes.array,
+  onTicketSelection: PropTypes.func
 };
 
 export default TicketList;
