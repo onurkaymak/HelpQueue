@@ -57,9 +57,11 @@ class TicketControl extends React.Component {
   }
 
   handleEditingTicketInList = (ticketToEdit) => {
-    const editedMainTicketList = this.state.mainTicketList
-      .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-      .concat(ticketToEdit);
+    const editedMainTicketList =
+      this.state.mainTicketList
+        .filter(ticket => ticket.id !== this.state.selectedTicket.id)
+        .concat(ticketToEdit);
+
     this.setState({
       mainTicketList: editedMainTicketList,
       editing: false,
