@@ -20,7 +20,8 @@ class TicketControl extends React.Component {
     if (this.state.selectedTicket != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedTicket: null
+        selectedTicket: null,
+        editing: false
       });
     } else {
       this.setState(prevState => ({
@@ -52,7 +53,6 @@ class TicketControl extends React.Component {
   }
 
   handleEditClick = () => {
-    console.log("handleEditClick reached!");
     this.setState({ editing: true });
   }
 
