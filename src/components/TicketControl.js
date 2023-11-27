@@ -53,10 +53,7 @@ class TicketControl extends React.Component {
   handleDeletingTicket = (id) => {
     const { dispatch } = this.props;
 
-    const action = {
-      type: 'DELETE_TICKET',
-      id: id
-    }
+    const action = a.deleteTicket(id);
 
     dispatch(action);
 
