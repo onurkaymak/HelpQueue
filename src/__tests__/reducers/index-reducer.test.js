@@ -34,4 +34,12 @@ describe("rootReducer", () => {
     expect(store.getState().mainTicketList).toEqual(ticketListReducer(undefined, action));
   });
 
+  test('#5 Check that TOGGLE_FORM action works for formVisibleReducer and root reducer', () => {
+    const action = {
+      type: 'TOGGLE_FORM'
+    }
+    store.dispatch(action);
+    expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, action));
+  });
+
 });
