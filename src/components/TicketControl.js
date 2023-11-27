@@ -69,15 +69,8 @@ class TicketControl extends React.Component {
 
   handleEditingTicketInList = (ticketToEdit) => {
     const { dispatch } = this.props;
-    const { id, names, location, issue } = ticketToEdit;
 
-    const action = {
-      type: 'ADD_TICKET',
-      id: id,
-      names: names,
-      location: location,
-      issue: issue,
-    }
+    const action = a.addTicket(ticketToEdit);
 
     dispatch(action);
 
@@ -86,6 +79,7 @@ class TicketControl extends React.Component {
       selectedTicket: null
     });
   }
+
 
   render() {
     let currentlyVisibleState = null;
