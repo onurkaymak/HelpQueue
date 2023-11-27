@@ -22,4 +22,16 @@ describe("rootReducer", () => {
     expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, { type: null }));
   });
 
+  test('#4 Check that ADD_TICKET action works for ticketListReducer and root reducer', () => {
+    const action = {
+      type: 'ADD_TICKET',
+      names: 'Ryan & Aimen',
+      location: '4b',
+      issue: 'Redux action is not working correctly.',
+      id: 1
+    }
+    store.dispatch(action);
+    expect(store.getState().mainTicketList).toEqual(ticketListReducer(undefined, action));
+  });
+
 });
