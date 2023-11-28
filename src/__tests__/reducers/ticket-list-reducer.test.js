@@ -35,13 +35,15 @@ describe('ticketListReducer', () => {
     expect(ticketListReducer({}, { type: null })).toEqual({});
   });
 
-  test('#2 Should successfully add new ticket data to mainTicketList', () => {
-    const { names, location, issue, id } = ticketData;
+  test('#2 Should successfully add a ticket to the ticket list that includes date-fns-formatted wait times', () => {
+    const { names, location, issue, timeOpen, formattedWaitTime, id } = ticketData;
     action = {
       type: c.ADD_TICKET,
       names: names,
       location: location,
       issue: issue,
+      timeOpen: timeOpen,
+      formattedWaitTime: formattedWaitTime,
       id: id
     };
     expect(ticketListReducer({}, action)).toEqual({
@@ -49,6 +51,8 @@ describe('ticketListReducer', () => {
         names: names,
         location: location,
         issue: issue,
+        timeOpen: timeOpen,
+        formattedWaitTime: 'less than a minute ago',
         id: id
       }
     });
