@@ -6,6 +6,7 @@ import TicketDetail from './TicketDetail';
 
 const TicketControl = () => {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
+  const [mainTicketList, setMainTicketList] = useState([]);
 
 
   const handleClick = () => {
@@ -21,11 +22,8 @@ const TicketControl = () => {
   }
 
   const handleDeletingTicket = (id) => {
-    const newMainTicketList = this.state.mainTicketList.filter(ticket => ticket.id !== id);
-    this.setState({
-      mainTicketList: newMainTicketList,
-      selectedTicket: null
-    });
+    const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
+    setMainTicketList(newMainTicketList);
   }
 
   const handleEditClick = () => {
@@ -33,19 +31,15 @@ const TicketControl = () => {
   }
 
   const handleEditingTicketInList = (ticketToEdit) => {
-    const editedMainTicketList = this.state.mainTicketList
+    const editedMainTicketList = mainTicketList
       .filter(ticket => ticket.id !== this.state.selectedTicket.id)
       .concat(ticketToEdit);
-    this.setState({
-      mainTicketList: editedMainTicketList,
-      editing: false,
-      selectedTicket: null
-    });
+    setMainTicketList(editedMainTicketList);
   }
 
   const handleAddingNewTicketToList = (newTicket) => {
-    const newMainTicketList = this.state.mainTicketList.concat(newTicket);
-    this.setState({ mainTicketList: newMainTicketList });
+    const newMainTicketList = mainTicketList.concat(newTicket);
+    setMainTicketList(newMainTicketList);
     setFormVisibleOnPage(false)
   }
 
@@ -71,7 +65,10 @@ const TicketControl = () => {
     currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
     buttonText = "Return to Ticket List";
   } else {
-    currentlyVisibleState = <TicketList onTicketSelection={this.handleChangingSelectedTicket} ticketList={this.state.mainTicketList} />;
+    currentlyVisibleState =
+      <TicketList
+        onTicketSelection={this.handleChangingSelectedTicket}
+        ticketList={mainTicketList} />;
     buttonText = "Add Ticket";
   }
   return (
