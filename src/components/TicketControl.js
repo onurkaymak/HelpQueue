@@ -88,7 +88,7 @@ const TicketControl = () => {
       {currentlyVisibleState}
       <button onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
-  );
+  )
 }
 
 export default TicketControl;
