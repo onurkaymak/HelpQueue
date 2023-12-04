@@ -11,6 +11,7 @@ const TicketControl = () => {
   const [mainTicketList, setMainTicketList] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const unSubscribe = onSnapshot(
@@ -26,7 +27,7 @@ const TicketControl = () => {
         setMainTicketList(tickets);
       },
       (error) => {
-
+        setError(error.message);
       }
     );
 
@@ -80,7 +81,9 @@ const TicketControl = () => {
   let currentlyVisibleState = null;
   let buttonText = null;
 
-  if (editing) {
+  if (error) {
+    currentlyVisibleState = <p>There was an error: {error}</p>
+  } else if (editing) {
     currentlyVisibleState =
       <EditTicketForm
         ticket={selectedTicket}
@@ -109,7 +112,7 @@ const TicketControl = () => {
   return (
     <React.Fragment>
       {currentlyVisibleState}
-      <button onClick={handleClick}>{buttonText}</button>
+      {error ? null : <button onClick={handleClick}>{buttonText}</button>}
     </React.Fragment>
   );
 }
