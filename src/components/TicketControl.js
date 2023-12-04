@@ -4,13 +4,36 @@ import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
 import db from './../firebase.js';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
 
 const TicketControl = () => {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    const unSubscribe = onSnapshot(
+      collection(db, "tickets"),
+      (collectionSnapshot) => {
+        const tickets = [];
+        collectionSnapshot.forEach((doc) => {
+          tickets.push({
+            names: doc.data().names,
+            location: doc.data().location,
+            issue: doc.data().issue,
+            id: doc.id
+          });
+        });
+        setMainTicketList(tickets);
+      },
+      (error) => {
+
+      }
+    );
+
+    return () => unSubscribe();
+  }, []);
 
 
   const handleClick = () => {
