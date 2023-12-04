@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { auth } from "./../firebase.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 const SignIn = () => {
   const [signUpSuccess, setSignUpSuccess] = useState(null);
+  const [signInSuccess, setSignInSuccess] = useState(null);
+
 
   const doSignUp = (event) => {
     event.preventDefault();
@@ -18,8 +20,20 @@ const SignIn = () => {
       .catch((error) => {
         setSignUpSuccess(`There was an error signing up: ${error.message}!`);
       })
+  }
 
-    return
+  const doSignIn = (event) => {
+    event.preventDefault();
+    const email = event.target.signinEmail.value;
+    const password = event.target.signinPassword.value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setSignInSuccess(`You've successfully signed in as ${userCredential.user.email}!`)
+      })
+      .catch((error) => {
+        setSignInSuccess(`There was an error signing in: ${error.message}!`)
+      });
   }
 
 
@@ -37,6 +51,21 @@ const SignIn = () => {
           name='password'
           placeholder='Password' />
         <button type='submit'>Sign up</button>
+      </form>
+
+      <h1>Sign In</h1>
+      {signInSuccess}
+
+      <form onSubmit={doSignIn}>
+        <input
+          type='text'
+          name='signinEmail'
+          placeholder='email' />
+        <input
+          type='password'
+          name='signinPassword'
+          placeholder='Password' />
+        <button type='submit'>Sign in</button>
       </form>
     </React.Fragment>
   );
