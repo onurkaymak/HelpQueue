@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReusableForm from "./ReusableForm";
 import { formatDistanceToNow } from 'date-fns';
+import { serverTimestamp } from "firebase/firestore";
+
 
 const NewTicketForm = (props) => {
 
@@ -11,7 +13,7 @@ const NewTicketForm = (props) => {
       names: event.target.names.value,
       location: event.target.location.value,
       issue: event.target.issue.value,
-      timeOpen: new Date(),
+      timeOpen: serverTimestamp(),
       formattedWaitTime: formatDistanceToNow(new Date(), {
         addSuffix: true
       })
