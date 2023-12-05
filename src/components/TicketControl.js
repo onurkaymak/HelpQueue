@@ -4,7 +4,7 @@ import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
 import { formatDistanceToNow } from 'date-fns';
 
 const TicketControl = () => {
@@ -34,15 +34,21 @@ const TicketControl = () => {
   }, [mainTicketList])
 
   useEffect(() => {
-    const unSubscribe = onSnapshot(
+    const queryByTimestamp = query(
       collection(db, "tickets"),
-      (collectionSnapshot) => {
+      orderBy('timeOpen')
+    );
+    const unSubscribe = onSnapshot(
+      queryByTimestamp,
+      (querySnapshot) => {
         const tickets = [];
-        collectionSnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc) => {
           const timeOpen = doc.get('timeOpen', { serverTimestamps: "estimate" }).toDate();
           const jsDate = new Date(timeOpen);
           tickets.push({
-            ...doc.data(),// transforms all of a document's data into a JS object with spread operator.
+            names: doc.data().names,
+            location: doc.data().location,
+            issue: doc.data().issue,
             timeOpen: jsDate,
             formattedWaitTime: formatDistanceToNow(jsDate),
             id: doc.id
