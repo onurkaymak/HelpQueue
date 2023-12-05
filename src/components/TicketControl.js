@@ -15,6 +15,25 @@ const TicketControl = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    function updateTicketElapsedWaitTime() {
+      const newMainTicketList = mainTicketList.map(ticket => {
+        const newFormattedWaitTime = formatDistanceToNow(ticket.timeOpen);
+        return { ...ticket, formattedWaitTime: newFormattedWaitTime };
+      });
+      setMainTicketList(newMainTicketList);
+    }
+
+    const waitTimeUpdateTimer = setInterval(() =>
+      updateTicketElapsedWaitTime(),
+      60000
+    );
+
+    return function cleanup() {
+      clearInterval(waitTimeUpdateTimer);
+    }
+  }, [mainTicketList])
+
+  useEffect(() => {
     const unSubscribe = onSnapshot(
       collection(db, "tickets"),
       (collectionSnapshot) => {
