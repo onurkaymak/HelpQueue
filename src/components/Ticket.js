@@ -19,7 +19,9 @@ Ticket.propTypes = {
   names: PropTypes.string,
   location: PropTypes.string,
   issue: PropTypes.string,
-  formattedWaitTime: PropTypes.string
+  formattedWaitTime: PropTypes.string,
+  id: PropTypes.string,
+  whenTicketClicked: PropTypes.func
 };
 
 export default Ticket;
