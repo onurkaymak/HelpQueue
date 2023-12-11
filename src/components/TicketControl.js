@@ -18,6 +18,10 @@ const TicketControl = (props) => {
   // We create our consumer.
   const theme = useContext(ThemeContext);
 
+  if (!theme) {
+    throw new Error("ThemeContext must be used within a ThemeContext.Provider!");
+  }
+
   // We create our styles.
   const styles = {
     backgroundColor: theme.buttonBackground,
