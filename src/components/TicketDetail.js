@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { ThemeContext } from "../context/theme-context";
 
 const TicketDetail = (props) => {
-  const { ticket, onClickingDelete } = props;
+  const { ticket, onClickingDelete, onClickingEdit } = props;
+
+  // We create our consumer.
+  const theme = useContext(ThemeContext);
+
+  // We create our styles.
+  const styles = {
+    backgroundColor: theme.buttonBackground,
+    color: theme.textColor
+  }
+
   return (
     <React.Fragment>
       <h1>Ticket Detail</h1>
       <h3>{ticket.location} - {ticket.names}</h3>
       <p><em>{ticket.issue}</em></p>
-      <button onClick={props.onClickingEdit}>Update Ticket</button>
-      <button onClick={() => onClickingDelete(ticket.id)}>Close Ticket</button>
+      <button style={styles} onClick={onClickingEdit}>Update Ticket</button>
+      <button style={styles} onClick={() => onClickingDelete(ticket.id)}>Close Ticket</button>
       <hr />
     </React.Fragment>
   );

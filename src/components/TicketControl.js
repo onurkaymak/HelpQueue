@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
@@ -6,13 +6,23 @@ import TicketDetail from './TicketDetail';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
 import { formatDistanceToNow } from 'date-fns';
+import { ThemeContext } from "../context/theme-context";
 
-const TicketControl = () => {
+const TicketControl = (props) => {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
+
+  // We create our consumer.
+  const theme = useContext(ThemeContext);
+
+  // We create our styles.
+  const styles = {
+    backgroundColor: theme.buttonBackground,
+    color: theme.textColor
+  }
 
   useEffect(() => {
     function updateTicketElapsedWaitTime() {
@@ -143,7 +153,7 @@ const TicketControl = () => {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        {error ? null : <button onClick={handleClick}>{buttonText}</button>}
+        {error ? null : <button style={styles} onClick={handleClick}>{buttonText}</button>}
       </React.Fragment>
     );
   }
