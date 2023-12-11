@@ -1,12 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const ToggleTheme = () => {
+const ToggleTheme = (props) => {
+  const { toggleTheme } = props;
+
   return (
     <React.Fragment>
-      <button>Toggle Theme</button>
+      <button onClick={toggleTheme}>
+        Toggle Theme
+      </button>
       <hr />
     </React.Fragment>
   );
+}
+
+ToggleTheme.propTypes = {
+  toggleTheme: PropTypes.func
 }
 
 export default ToggleTheme;
