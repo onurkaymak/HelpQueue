@@ -9,14 +9,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
 const App = () => {
-
   const [theme, setTheme] = useState(themes.light);
+
+  const toggleTheme = () => {
+    setTheme(theme => theme.textColor === "AntiqueWhite" ? themes.light : themes.dark);
+  }
 
   return (
     <Router>
       <ThemeContext.Provider value={theme}>
         <Header />
-        <ToggleTheme />
+        <ToggleTheme toggleTheme={toggleTheme} />
         <Routes>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/" element={<TicketControl />} />
