@@ -22,7 +22,9 @@ const App = () => {
     <Router>
       <ThemeContext.Provider value={theme}>
         <Header />
-        <ToggleTheme toggleTheme={toggleTheme} />
+        <ThemeContext.Consumer>
+          {contextTheme => <ToggleTheme theme={contextTheme} toggleTheme={toggleTheme} />}
+        </ThemeContext.Consumer>
         <Routes>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/" element={<TicketControl />} />
